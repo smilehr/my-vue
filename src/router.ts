@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Test from './views/test.vue';
+import { compMenus } from './modules/globalParam';
 
 Vue.use(Router);
 
@@ -26,6 +27,7 @@ export default new Router({
 			path: '/test',
 			name: 'test',
 			component: Test,
+			children: compMenus
 		}
 	],
 });
