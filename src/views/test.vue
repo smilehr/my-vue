@@ -3,9 +3,13 @@
 		<header class="header">Header</header>
 		<section class="container">
 			<aside class="aside">
-				<nav-menu :menus=navMenus></nav-menu>
+				<nav-menu 
+					:menus="navMenus"
+					:menuStyle="menuStyle"
+					:defaultActive="defaultActive"
+					:level="level"></nav-menu>
 			</aside>
-			<main class="main" v-if="false">
+			<main class="main">
 				<router-view></router-view>
 			</main>		
 		</section>
@@ -15,7 +19,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-import NavMenu from '@/components/NavMenu.vue';
+import NavMenu from '@/components/navmenu/NavMenu.vue';
 import { compMenus } from '../modules/globalParam';
 
 @Component({
@@ -25,11 +29,14 @@ import { compMenus } from '../modules/globalParam';
 })
 export default class Test extends Vue {
 	public navMenus: object[] = compMenus;
-	private cname: string = '';
-
-	private changeComp(str: string): void {
-		this.cname = str;
-	}
+	private menuStyle: {} = {
+		bgColor: '#545c64',
+		color: '#fff',
+		activeBgColor: '#434a50',
+		activeColor: '#ffd04b'
+	};
+	private level: number = 1;
+	private defaultActive: string = '2';
 }
 </script>
 
@@ -52,7 +59,7 @@ export default class Test extends Vue {
 		display: flex;
     flex: 1;
 		.aside {
-			width: 100%;
+			width: 200px;
 			height: 100%;
 			border: 1px solid #ccc;
 		}

@@ -27,6 +27,7 @@ export default new Router({
 			path: '/test',
 			name: 'test',
 			component: Test,
+			redirect: '/test/home1',
 			children: compMenus
 		}
 	],
