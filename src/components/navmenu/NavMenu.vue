@@ -15,7 +15,7 @@
 				v-if="menu.children && menu.children.length > 0"
 				:menus="menu.children"
 				:menuStyle="menuStyle"
-				:index="idx + 1"
+				:index="'' + (idx + 1)"
 				:level="level + 1"
 				:activeItem="activeItem"
 				@setActiveItem="setActiveItem"

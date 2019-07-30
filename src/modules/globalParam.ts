@@ -1,6 +1,15 @@
-import { RouteConfig } from 'vue-router';
+/**
+ * 定义导航栏接口
+ */
+export interface NavMenu {
+	name: string;
+	path?: string;
+	component: object;
+	meta: object;
+	children?: NavMenu[];
+}
 
-export const compMenus: RouteConfig[] = [{
+export const compMenus: NavMenu[] = [{
 	name: 'container',
 	path: '/test/container',
 	component: () => import('@/components/Container.vue'),

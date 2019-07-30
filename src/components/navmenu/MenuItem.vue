@@ -49,7 +49,6 @@ export default class MenuItem extends Vue {
 	@Watch('activeItem')
 	private onActiveItemChanged(nValue: string, oValue: string) {
 		this.activeItem = nValue;
-		console.log(nValue);
 		this.updateIsActive();
 	}
 }
