@@ -1,3 +1,9 @@
+<!-- 
+	原本构想：通过调用者指定默认active项，再通过每项的点击事件，改变activeItem值，判断Index === activeItem判断当前点击item
+					 是否 isActive；但可惜，第一级和第二级并不能视为一个整体，而又不想手动固定级数，所以采用$router.path作为相应数据
+	折中构想：通过this.$route.name === name 判断当前点击项isActive = true or false
+-->
+
 <template>
 	<div class="nav-menu" :style="{ 'background-color': menuStyle.bgColor, 'color': menuStyle.color }">
 		<menu-item
@@ -6,20 +12,19 @@
 			:menu="menu"
 			:index="index ? index + '-' + (idx + 1) : '' + (idx + 1)"
 			:key="menu.name"
+			:name="menu.name"
 			:activeBg="menuStyle.activeBgColor"
 			:activeColor="menuStyle.activeColor"
-			:activeItem="activeItem"
-			@setActiveItem="setActiveItem"
-		>
+			:defaultActive="defaultActive">
 			<nav-menu 
 				v-if="menu.children && menu.children.length > 0"
+				v-show="menu.isopen"
 				:menus="menu.children"
 				:menuStyle="menuStyle"
 				:index="'' + (idx + 1)"
 				:level="level + 1"
-				:activeItem="activeItem"
-				@setActiveItem="setActiveItem"
-			></nav-menu>
+				:defaultActive="defaultActive">
+			</nav-menu>
 		</menu-item>
 	</div>
 </template>
@@ -34,22 +39,11 @@ import MenuItem from './MenuItem.vue';
 	}
 })
 export default class NavMenu extends Vue {
-	@Prop() private menus!: object[];
-	@Prop() private index!: string;
-	@Prop() private menuStyle!: {};
-	@Prop() private level!: number;
-	@Prop() private defaultActive!: string;
-
-	private activeItem: string = this.defaultActive || '';
-
-	private setActiveItem(index: string): void {
-		this.activeItem = index;
-	}
-
-	@Watch('activeItem')
-	private onActiveItemChanged(nValue: string, oValue: string) {
-		this.activeItem = nValue;
-	}
+	@Prop() public menus!: object[];
+	@Prop() public index!: string;
+	@Prop() public menuStyle!: {};
+	@Prop() public level!: number;
+	@Prop() public defaultActive!: string;
 }
 </script>
 

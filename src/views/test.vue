@@ -6,8 +6,9 @@
 				<nav-menu 
 					:menus="navMenus"
 					:menuStyle="menuStyle"
-					:defaultActive="defaultActive"
-					:level="level"></nav-menu>
+					:level="level"
+					:defaultActive="defaultActive">
+				</nav-menu>
 			</aside>
 			<main class="main">
 				<router-view></router-view>
@@ -20,7 +21,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import NavMenu from '@/components/navmenu/NavMenu.vue';
-import { compMenus } from '../modules/globalParam';
+import { NavConfig, NavParams } from '../modules/globalParam';
 
 @Component({
 	components: {
@@ -28,7 +29,8 @@ import { compMenus } from '../modules/globalParam';
 	},
 })
 export default class Test extends Vue {
-	public navMenus: object[] = compMenus;
+	public navMenus: NavConfig[] = NavParams.navmenu;
+	public defaultActive: string = NavParams.default;
 	private menuStyle: {} = {
 		bgColor: '#545c64',
 		color: '#fff',
@@ -36,7 +38,6 @@ export default class Test extends Vue {
 		activeColor: '#ffd04b'
 	};
 	private level: number = 1;
-	private defaultActive: string = '2';
 }
 </script>
 

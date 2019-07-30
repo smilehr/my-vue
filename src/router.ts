@@ -2,13 +2,13 @@ import Vue from 'vue';
 import Router, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
 import Test from './views/test.vue';
-import { compMenus, NavMenu } from './modules/globalParam';
+import { NavParams, NavConfig } from './modules/globalParam';
 
 Vue.use(Router);
 
 const childRoutes: RouteConfig[] = [];
-function getRoutes(menus: NavMenu[]): void {
-	menus.forEach((val: NavMenu, index: number) => {
+function getRoutes(menus: NavConfig[]): void {
+	menus.forEach((val: NavConfig, index: number) => {
 		if (val.children && val.children.length > 0) {
 			getRoutes(val.children);
 		}
@@ -23,7 +23,7 @@ function getRoutes(menus: NavMenu[]): void {
 	});
 }
 
-getRoutes(compMenus);
+getRoutes(NavParams.navmenu);
 
 export default new Router({
 	mode: 'history',
@@ -46,7 +46,7 @@ export default new Router({
 			path: '/test',
 			name: 'test',
 			component: Test,
-			redirect: '/test/home1',
+			redirect: '/test/' + NavParams.default,
 			children: childRoutes
 		}
 	],

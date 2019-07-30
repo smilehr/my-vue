@@ -9,29 +9,34 @@
 		<router-link class="item-title" :to="menu.path" tag="div">
 			<i :class="['iconfont', menu.meta.icon]"></i>
 			<span>{{ menu.meta.title }}</span>
-			<i class="iconfont icon-arrow icon-arrow-right"></i>
+			<i :class="['iconfont', 'icon-arrow', !isopen ? 'icon-arrow-right' : 'icon-arrow-down']"></i>
 		</router-link>
-		<slot></slot>
+		<div class="menu-group" v-show="isopen">
+			<slot></slot>
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { NavConfig } from '../../modules/globalParam';
 
 @Component
 export default class MenuItem extends Vue {
-	@Prop() private menu!: {};
-	@Prop() private index!: string;
-	@Prop() private activeBg!: string;
-	@Prop() private activeColor!: string;
-	@Prop() private activeItem!: string;
+	@Prop() public defaultActive!: string;
+	@Prop() public menu!: NavConfig;
+	@Prop() public index!: string;
+	@Prop() public activeBg!: string;
+	@Prop() public activeColor!: string;
+	@Prop() public name!: string;
 
-	private isActive: boolean = this.index === this.activeItem;
+	private isActive: boolean = this.name === this.defaultActive;
 	private bgColor = this.isActive ? this.activeBg : '';
 	private textColor = this.isActive ? this.activeColor : '';
+	private isopen = !!this.menu.isopen;
 
 	public doClick(): void {
-		this.$emit('setActiveItem', this.index);
+		this.isopen = !this.isopen;
 	}
 
 	public changeHover(idx: boolean): void {
@@ -40,16 +45,11 @@ export default class MenuItem extends Vue {
 		this.textColor = idx ? this.activeColor : '';
 	}
 
-	private updateIsActive() {
-		this.isActive = this.index === this.activeItem;
+	@Watch('$route')
+	private changeRoute(to: { [propName: string]: any; }, from: object): void {
+		this.isActive = this.name === to.name;
 		this.bgColor = this.isActive ? this.activeBg : '';
 		this.textColor = this.isActive ? this.activeColor : '';
-	}
-
-	@Watch('activeItem')
-	private onActiveItemChanged(nValue: string, oValue: string) {
-		this.activeItem = nValue;
-		this.updateIsActive();
 	}
 }
 </script>
@@ -78,7 +78,6 @@ export default class MenuItem extends Vue {
 			position: absolute;
 			right: 20px;
 			transition: transform .3s;
-			font-size: 12px;
 		}
 	}
 }
