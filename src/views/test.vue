@@ -69,6 +69,7 @@ export default class Test extends Vue {
 			height: 100%;
 			border: 1px solid #ccc;
 			border-left: none;
+			padding: 10px;
 		}
 	}
 	.footer {

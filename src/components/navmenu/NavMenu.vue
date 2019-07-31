@@ -1,4 +1,10 @@
 <!-- 
+	params: 
+		1. menus: 导航栏数据，参照globalParam.ts 接口 NavConfig
+		2. menuStyle: { bgColor: string, color: string,	activeBgColor: string, activeColor: string }
+		3. defaultActive: string 导航栏默认节点 menus[i].name 字段
+		4. level: number 当前导航栏层级
+		5. index: string 当前导航栏index
 	原本构想：通过调用者指定默认active项，再通过每项的点击事件，改变activeItem值，判断Index === activeItem判断当前点击item
 					 是否 isActive；但可惜，第一级和第二级并不能视为一个整体，而又不想手动固定级数，所以采用$router.path作为相应数据
 	折中构想：通过this.$route.name === name 判断当前点击项isActive = true or false

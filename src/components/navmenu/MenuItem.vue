@@ -1,3 +1,12 @@
+<!--
+	params: 
+		1. menu: 导航栏数据，参照globalParam.ts 接口 NavConfig
+		2. activeBg, activeColor 选中节点样式
+		3. defaultActive: string 导航栏默认节点 menus[i].name 字段
+		4. name: string 当前节点name，用来判断当前节点是否选中
+		5. index: string 当前导航栏index
+-->
+
 <template>
 	<div class="menu-item"
 		:style="{	backgroundColor: bgColor,	color: textColor }"
