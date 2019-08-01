@@ -11,9 +11,9 @@ export interface NavConfig {
 }
 
 const compMenus: NavConfig[] = [{
-	name: 'container',
-	path: '/test/container',
-	component: () => import('@/components/Container.vue'),
+	name: 'layout',
+	path: '/test/layout',
+	component: () => import('@/views/test/LayoutDemo.vue'),
 	meta: {
 		title: '布局组件',
 		icon: 'icon-navigation'
