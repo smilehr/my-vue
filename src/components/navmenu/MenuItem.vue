@@ -20,7 +20,7 @@
 			<span>{{ menu.meta.title }}</span>
 			<i :class="['iconfont', 'icon-arrow', !isopen ? 'icon-arrow-right' : 'icon-arrow-down']"></i>
 		</router-link>
-		<div class="menu-group" v-show="isopen">
+		<div class="menu-group" v-show="isopen" v-if="menu.children && menu.children.length > 0">
 			<slot></slot>
 		</div>
 	</div>

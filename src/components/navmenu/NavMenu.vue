@@ -24,7 +24,6 @@
 			:defaultActive="defaultActive">
 			<nav-menu 
 				v-if="menu.children && menu.children.length > 0"
-				v-show="menu.isopen"
 				:menus="menu.children"
 				:menuStyle="menuStyle"
 				:index="'' + (idx + 1)"

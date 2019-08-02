@@ -1,13 +1,13 @@
 <template>
 	<div class="test">
-		<header class="header">Header</header>
+		<header class="header">{{ $route.name }}</header>
 		<section class="container">
 			<aside class="aside">
 				<nav-menu 
 					:menus="navMenus"
 					:menuStyle="menuStyle"
 					:level="level"
-					:defaultActive="defaultActive">
+					:defaultActive="$route.name || ''">
 				</nav-menu>
 			</aside>
 			<main class="main">
@@ -30,7 +30,6 @@ import { NavConfig, NavParams } from '../modules/globalParam';
 })
 export default class Test extends Vue {
 	public navMenus: NavConfig[] = NavParams.navmenu;
-	public defaultActive: string = NavParams.default;
 	private menuStyle: {} = {
 		bgColor: '#545c64',
 		color: '#fff',
