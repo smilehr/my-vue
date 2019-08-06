@@ -1,18 +1,18 @@
 <template>
 	<div class="container">
-		<header class="head" v-show="type !== 'no-header'">
+		<header v-show="type !== 'no-header'">
 			<slot name="header"></slot>
 		</header>
-		<section class="content">
-			<aside class="aside" v-show="type !== 'no-aside'" :style="{ width: sideWidth || 0 }">
-				<div class="shrik-btn" v-show="isDrag"></div>
+		<section>
+			<aside v-show="type !== 'no-aside'" :style="{ width: sideWidth || 0 }">
 				<slot name="aside"></slot>
+				<div class="shrik-btn" v-if="isDrag"></div>
 			</aside>
-			<main class="main-body" :style="{ width: mainWidth }">
+			<main :style="{ width: mainWidth }">
 				<slot name="main"></slot>
 			</main>
 		</section>
-		<footer class="foot" v-show="type !== 'no-footer'">
+		<footer v-show="type !== 'no-footer'">
 			<slot name="footer"></slot>
 		</footer>
 	</div>
@@ -22,7 +22,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class Container extends Vue {
+export default class Layout extends Vue {
 	/**
 	 * no-aside: 无侧边栏
 	 * no-footer: 无底部
@@ -44,19 +44,19 @@ export default class Container extends Vue {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: left;
+	align-content: flex-start;
 	border: 1px solid #ccc;
-	text-align: center;
-	.head, .footer {
-		height: 80px;
+	header, footer, section {
 		width: 100%;
-		line-height: 80px;
 	}
-	.content {
-		width: 100%;
-		min-height: 100px;
-		line-height: 100px;
+	section {
 		display: flex;
 		flex-wrap: nowrap;
+		justify-content: left;
+		align-content: flex-start;
+		main, aside {
+			height: 100%;
+		}
 		.aside {
 			position: relative;
 			border-right: 1px solid #ccc;

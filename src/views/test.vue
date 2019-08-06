@@ -1,31 +1,29 @@
 <template>
-	<div class="test">
-		<header class="header">{{ $route.name }}</header>
-		<section class="container">
-			<aside class="aside">
-				<nav-menu 
-					:menus="navMenus"
-					:menuStyle="menuStyle"
-					:level="level"
-					:defaultActive="$route.name || ''">
-				</nav-menu>
-			</aside>
-			<main class="main">
-				<router-view></router-view>
-			</main>		
-		</section>
-	</div>
+	<layout class="test" :type="'no-footer'" :width="'200px'" :isDrag="true">
+		<div class="head" slot="header">{{ $route.name }}</div>
+		<div class="aside" slot="aside">
+			<nav-menu 
+				:menus="navMenus"
+				:menuStyle="menuStyle"
+				:level="level"
+				:defaultActive="$route.name || ''">
+			</nav-menu>
+		</div>
+		<div class="main" slot="main"><router-view></router-view></div>
+	</layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 import NavMenu from '@/components/navmenu/NavMenu.vue';
+import Layout from '@/components/Layout.vue';
 import { NavConfig, NavParams } from '../modules/globalParam';
 
 @Component({
 	components: {
-		NavMenu
+		NavMenu,
+		Layout
 	},
 })
 export default class Test extends Vue {
@@ -41,40 +39,31 @@ export default class Test extends Vue {
 </script>
 
 <style lang="less" scoped>
+.test /deep/ section {
+	height: calc(100% - 80px);
+	padding-bottom: 1%;
+}
+
 .test {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 1;
 	height: 100%;
-	.header {
+	.head {
 		height: 80px;
 		line-height: 80px;
 		text-align: center;
 		width: 100%;
 	}
-	.container {
-		width: 100%;
-		height: calc(100% - 80px);
-		padding-bottom: 1%;
-		display: flex;
-    flex: 1;
-		.aside {
-			width: 200px;
-			height: 100%;
-			border: 1px solid #ccc;
-		}
-		main.main {
-			width: calc(100% - 200px);
-			height: 100%;
-			border: 1px solid #ccc;
-			border-left: none;
-			padding: 10px;
-		}
+	.aside {
+		height: 100%;
+		border: 1px solid #ccc;
 	}
-	.footer {
-		height: 80px;
-		line-height: 80px;
-		width: 100%;
+	.main {
+		height: 100%;
+		border: 1px solid #ccc;
+		border-left: none;
+		padding: 10px;
 	}
 }
 
